@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule App</title>
+  <link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">일정 삭제하기</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          정말 삭제할까요?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-warning">삭제하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="mt-5">학급 일정 알림표</h1>
+    <a href="/new" class="btn btn-primary mb-3">일정 추가하기</a>
+    <div class="list-group">
+      <% schedules.forEach(function(schedule) { %>
+        <a onclick="openDeleteModal('<%= schedule.id %>', '<%= schedule.title %>')" class="list-group-item list-group-item-action">
+          <h5 class="mb-1">
+            <%= schedule.title %>
+          </h5>
+          <h6 class="mb-1">
+            <%= schedule.writer %>
+          </h6>
+          <p class="mb-1">
+            <%= schedule.content %>
+          </p>
+          <small>마감일: <%= new Date(schedule.deadline).toLocaleDateString() %></small>
+        </a>
+        <% }) %>
+    </div>
+  </div>
+  <script src="/bootstrap/js/bootstrap.js"></script>
+  <script>
+    function openDeleteModal(id, title) {
+      console.log(id)
+    }
+  </script>
+</body>
+
+</html>

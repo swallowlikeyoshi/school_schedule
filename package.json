@@ -1,0 +1,28 @@
+{
+  "name": "school-schedule",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "kim",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.3",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7",
+    "webpack": "^5.92.1"
+  },
+  "engines": {
+    "node": "20.12.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
+  },
+  "description": ""
+}
