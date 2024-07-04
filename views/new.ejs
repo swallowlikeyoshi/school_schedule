@@ -6,9 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>새 일정 추가하기</title>
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <h2>학급 일정 알림표</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <div class="d-flex">
+                        <li class="nav-item">
+                            <button id="dark-mode-toggle" class="btn btn-warning form-control me-2 nav-link active"
+                                aria-current="page">다크 모드</button>
+                        </li>
+                    </div class="d-flex">
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <h1 class="mt-5">새 일정 추가하기</h1>
         <form action="/new" method="post">
@@ -21,23 +44,28 @@
                 <input type="text" class="form-control" id="writer" name="writer" required>
             </div> -->
             <div class="input-group mb-3">
-                <input type="text" class="form-control" id="writer" name="writer" placeholder="작성자" aria-label="Username" required>
-                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" aria-label="Password" required>
-              </div>
+                <input type="text" class="form-control" id="writer" name="writer" placeholder="작성자"
+                    aria-label="Username" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호"
+                    aria-label="Password" required>
+            </div>
             <div class="mb-3">
                 <label for="content" class="form-label">내용</label>
                 <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
             </div>
             <div class="mb-3">
                 <label for="deadline" class="form-label">마감일</label>
-                <input type="date" class="form-control" id="deadline" name="deadline" required>
+                <input type="date" class="form-control" id="deadline" name="deadline"
+                    value="<%= date.year %>-<%= date.month.padStart(2, '0') %>-<%= date.day.padStart(2, '0') %>"
+                    required>
             </div>
             <a class="btn btn-secondary" href="/">뒤로가기</a>
             <button type="submit" class="btn btn-primary">등록하기</button>
         </form>
-        
+
     </div>
     <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script> 
 </body>
 
 </html>

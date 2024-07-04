@@ -26,25 +26,27 @@ app.get('/', (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    res.render('index', { schedules: rows });
+    res.render('index', { schedules: rows.sort((a, b) => new Date(a.deadline).getDate() - new Date(b.deadline).getDate() ) });
   });
 });
 
 // 일정 JSON으로 반환하는 메소드
-app.get('/schedules', (req, res) => {
-  db.all("SELECT * FROM schedules", [], (err, rows) => {
-      if (err) {
-          console.error(err.message);
-          res.status(500).send('Internal Server Error');
-          return;
-      }
-      res.json(rows);
+app.get('/new', (req, res) => {
+  const date = new Date();
+  res.render('new', {
+    date: {
+      year: date.getFullYear(),
+      month: (date.getMonth() + 1).toLocaleString(), // 월은 0부터 시작하므로 1을 더해줍니다.
+      day: date.getDate().toLocaleString() // getDay()가 아닌 getDate()를 사용해야 합니다.
+    }
   });
 });
 
+
 // 일정 등록 페이지
 app.get('/new', (req, res) => {
-  res.render('new');
+  const date = new Date();
+  res.render('new', { date:  { year: date.getFullYear().toLocaleString(), month: date.getMonth().toLocaleString(), day: date.getDay().toLocaleString()}});
 });
 
 // 일정 등록 처리
