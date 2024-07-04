@@ -19,6 +19,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // 루트 라우트
 app.get('/', (req, res) => {
   db.all("SELECT * FROM schedules", [], (err, rows) => {
@@ -30,15 +31,15 @@ app.get('/', (req, res) => {
 });
 
 // 일정 JSON으로 반환하는 메소드
-app.get('/schedule_list', (req, res) => {
-    db.all("SELECT * FROM schedules", [], (err, rows) => {
-        if (err) {
-            console.error(err.message);
-            res.status(500).send('Internal Server Error');
-            return;
-        }
-        res.json(rows);
-    });
+app.get('/schedules', (req, res) => {
+  db.all("SELECT * FROM schedules", [], (err, rows) => {
+      if (err) {
+          console.error(err.message);
+          res.status(500).send('Internal Server Error');
+          return;
+      }
+      res.json(rows);
+  });
 });
 
 // 일정 등록 페이지
@@ -57,8 +58,24 @@ app.post('/new', (req, res) => {
   });
 });
 
+// 일정 삭제 처리
+app.post('/delete', async (req, res) => {
+  const id = req.body.id;
+  db.run(`DELETE FROM schedules WHERE id = ?`, [id], function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.redirect('/');
+  });
+});
+
 // 서버 시작
 const PORT = 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  db.run(`INSERT INTO schedules (title, writer, password, content, deadline) VALUES (?, ?, ?, ?, ?)`, ['테스트', '김도현', '1234', '내용', '2020-11-11'], (err) => {
+    if (err) {
+      console.log(err);
+    }
+  })
 });

@@ -32,27 +32,26 @@
     <a href="/new" class="btn btn-primary mb-3">일정 추가하기</a>
     <div class="list-group">
       <% schedules.forEach(function(schedule) { %>
-        <a onclick="openDeleteModal('<%= schedule.id %>', '<%= schedule.title %>')" class="list-group-item list-group-item-action">
-          <h5 class="mb-1">
-            <%= schedule.title %>
-          </h5>
-          <h6 class="mb-1">
-            <%= schedule.writer %>
-          </h6>
-          <p class="mb-1">
-            <%= schedule.content %>
-          </p>
-          <small>마감일: <%= new Date(schedule.deadline).toLocaleDateString() %></small>
-        </a>
+        <form action="/delete" method="post">
+          <div class="list-group-item list-group-item-action <%= (new Date().getMonth() === new Date(schedule.deadline).getMonth() && new Date().getDate() === new Date(schedule.deadline).getDate()) ? 'list-group-item-danger' : '' %>">
+            <h5 class="mb-1">
+              <%= schedule.title %>
+            </h5>
+            <h6 class="mb-1">
+              <%= schedule.writer %>
+            </h6>
+            <p class="mb-1">
+              <%= schedule.content %>
+            </p>
+            <small>마감일: <%= new Date(schedule.deadline).toLocaleDateString() %></small>
+            <input type="text" class="form-control" id="id" name="id" value="<%= schedule.id %>" style="display: none;" />
+            <button type="submit" class="btn btn-primary">삭제</button>
+          </div>  
+        </form>
         <% }) %>
     </div>
   </div>
-  <script src="/bootstrap/js/bootstrap.js"></script>
-  <script>
-    function openDeleteModal(id, title) {
-      console.log(id)
-    }
-  </script>
+  <script src="/bootstrap/js/bootstrap.js"></script>  
 </body>
 
 </html>
